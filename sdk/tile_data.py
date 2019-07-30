@@ -74,7 +74,7 @@ class OldItemMul:
         self.misc = misc
         self.unk2 = int(unk2)
         self.quantity = int(amt)
-        self.anim = anim
+        self.animation = anim
         self.unk3 = int(unk3)
         self.hue = int(hue)
         self.stacking_offset = int(stacking_offset)

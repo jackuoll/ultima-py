@@ -24,6 +24,8 @@ class Animation:
         body, file_type = BodyConverter.convert(body)
         file_index, index = cls.get_file_index(body, action, direction, file_type)
         stream, length, extra, patched = file_index.seek(index)
+        if not stream:
+            return None
         flip = direction > 4
         palette = [x ^ 0x8000 for x in unpack('H' * 256, stream.read(2 * 256))]
         start = stream.tell()
@@ -194,6 +196,7 @@ class Frame:
                 c = palette[ord(reader.read(1))]
                 if c != 0:
                     self.bitmap.putpixel((x + i, y), get_arbg_from_16_bit(c))
+
             header = unpack('i', reader.read(4))[0]
         if flip:
             self.bitmap = self.bitmap.transpose(Image.FLIP_LEFT_RIGHT)

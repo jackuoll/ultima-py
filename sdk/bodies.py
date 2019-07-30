@@ -17,7 +17,7 @@ class BodyConverter:
     @classmethod
     def load(cls):
         print("Loading BodyConverter")
-        f=open(ultima_file_path('Bodyconv.def'), 'r')
+        f = open(ultima_file_path('Bodyconv.def'), 'r')
         max1 = max2 = max3 = max4 = 0
         list1 = []
         list2 = []
@@ -81,7 +81,7 @@ class BodyConverter:
         if body < 0:
             return False
         for idx, table in enumerate([cls.TABLE_1, cls.TABLE_2, cls.TABLE_3, cls.TABLE_4]):
-            new_body = table[body];
+            new_body = safe_list_get(table, body, -1)
             if new_body != -1:
                 return new_body, idx + 1
         return body, 1  # todo: default to returning orig body + 1 file idx, is it correct?
@@ -105,7 +105,7 @@ class BodyTable:
     @classmethod
     def load(cls):
         print("Loading BodyTable")
-        f = open(ultima_file_path('Body.def'), 'r')
+        f = open('files/Body.def', 'r')
         for line in f:
             line = line.strip()
             if not line or line.startswith("#"):
