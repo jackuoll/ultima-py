@@ -2,20 +2,20 @@
 
 ultimapy is a python library for rendering images from the Ultima Online client files. The SDK part of the project is almost a direct 1:1 code translation of the C# Ultima SDK (used by UOFiddler, among other things).
 
-###Features
+### Features
 ultimapy can currently do the following:
 * Render land, statics. This includes rendering of in game items.
 * Render "animations" or single frames of animations. This includes monsters and players, though player construction is done by rendering the mount, body, hair and clothing layers in order.
 * Draw text from the client (eg, ASCIIFont).
 * Extract information about skills - naming, groups, indexes.
 
-#####Unimplemented features
-######Planned
+##### Unimplemented features
+###### Planned
 * Rendering gumps
 * Rendering paperdolls (requires gumps)
 * Command to fully set up ultimapy - downloading compatible client files and auto generating your environment to make getting going on your website easy.
 
-######Unplanned
+###### Unplanned
 * UOP support is not planned, which limits the client version.
 
 
@@ -61,4 +61,4 @@ img = img_frame[0].bitmap  # there will only be an index of 1 if you only ask fo
 img.save("red_guy.bmp")
 ```
 
-#####This section is in progress, as there is a sole developer of this project, and work on this project is purely fueled by requirements of https://uolostlands.com 
+##### This section is in progress, as there is a sole developer of this project, and work on this project is purely fueled by requirements of https://uolostlands.com 
