@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ultimapy",
-    version="0.0.4",
+    version="0.0.5",
     author="Jack Ward",
     author_email="jackward84@gmail.com",
-    description="Ultima SDK Python Port",
+    description="UltimaPy - Extract information and images from the UO client files",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jackuoll/ultima-py",
