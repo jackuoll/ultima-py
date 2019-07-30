@@ -1,3 +1,5 @@
+from settings import ultima_file_path
+
 from struct import unpack
 from .art import Art
 
@@ -14,7 +16,7 @@ class TileData:
     @classmethod
     def load(cls):
         cls.loaded = True
-        with open('files/tiledata.mul', 'rb') as f:
+        with open(ultima_file_path('tiledata.mul'), 'rb') as f:
             f.seek(0, 2)
             length = f.tell()
             f.seek(0)

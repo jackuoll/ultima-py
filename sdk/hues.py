@@ -1,3 +1,5 @@
+from settings import ultima_file_path
+
 from .utils import get_arbg_from_16_bit
 from struct import unpack
 
@@ -36,7 +38,7 @@ class Hues:
     def load(cls):
         print("Loading Hues")
         cls.HUES = {i: Hue(i) for i in range(3000)}
-        f=open('files/hues.mul', 'rb')
+        f=open(ultima_file_path('hues.mul'), 'rb')
         block_count = max(375, int(unpack('i', f.read(4))[0] / 708))
         f.seek(0)
         headers = []  # why?

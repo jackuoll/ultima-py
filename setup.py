@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ultimapy",
-    version="0.0.1",
+    version="0.0.3",
     author="Jack Ward",
     author_email="jackward84@gmail.com",
     description="Ultima SDK Python Port",
@@ -14,6 +14,10 @@ setuptools.setup(
     url="https://github.com/jackuoll/ultima-py",
     packages=setuptools.find_packages(),
     license="Beerware",
+    install_requires=[
+        'Pillow==5.2.0',
+        'imageio==2.3.0'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",

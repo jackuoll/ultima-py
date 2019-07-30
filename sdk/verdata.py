@@ -1,3 +1,5 @@
+from settings import ultima_file_path
+
 from struct import unpack
 
 
@@ -6,7 +8,7 @@ class Verdata:
         No reason to instantiate.
         Assumed to be working as per C# Ultima SDK but untested.
     """
-    FILE = open('files/verdata.mul', 'rb')
+    FILE = open(ultima_file_path('verdata.mul'), 'rb')
     patches = []
 
     @classmethod

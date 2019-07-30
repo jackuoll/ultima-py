@@ -6,3 +6,6 @@ __pycache__/
 input/
 main.py
 files/
+environment.ini
+dist/
+ultimapy.egg-info/

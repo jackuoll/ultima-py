@@ -1,3 +1,5 @@
+from settings import ultima_file_path
+
 import os
 from struct import unpack
 from .verdata import Verdata
@@ -13,9 +15,10 @@ class FileIndex:
         - Should be refactored -- files can be non existent.
     """
     def __init__(self, idx_filename, mul_filename, length, file_idx):
+        index_file = None
         try:
-            index_file = open(os.path.join('files/', idx_filename), 'rb')
-            mul_file = open(os.path.join('files/', mul_filename), 'rb')
+            index_file = open(ultima_file_path(idx_filename), 'rb')
+            mul_file = open(ultima_file_path(mul_filename), 'rb')
         except FileNotFoundError:
             print(f"No file for index {idx_filename if not index_file else mul_filename}")
             return

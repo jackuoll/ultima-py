@@ -1,4 +1,6 @@
 from .utils import safe_list_get
+from settings import ultima_file_path
+
 
 class BodyConverter:
     """
@@ -15,7 +17,7 @@ class BodyConverter:
     @classmethod
     def load(cls):
         print("Loading BodyConverter")
-        f=open('files/Bodyconv.def', 'r')
+        f=open(ultima_file_path('Bodyconv.def'), 'r')
         max1 = max2 = max3 = max4 = 0
         list1 = []
         list2 = []
@@ -103,7 +105,7 @@ class BodyTable:
     @classmethod
     def load(cls):
         print("Loading BodyTable")
-        f = open('files/Body.def', 'r')
+        f = open(ultima_file_path('Body.def'), 'r')
         for line in f:
             line = line.strip()
             if not line or line.startswith("#"):
