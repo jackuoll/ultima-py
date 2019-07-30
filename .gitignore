@@ -1,0 +1,8 @@
+Ultima/
+.idea/
+output/
+__pycache__/
+*.db
+input/
+main.py
+files/
