@@ -1,3 +1,4 @@
+from settings import ultima_file_path
 from PIL import Image
 from .utils import readbyte, get_arbg_from_16_bit
 
@@ -18,7 +19,7 @@ class ASCIIFont:
 
     @classmethod
     def load(cls):
-        with open('files/fonts.mul', 'rb') as f:
+        with open(ultima_file_path('fonts.mul'), 'rb') as f:
             for i in range(10):
                 font = ASCIIFont(f)
                 for k in range(224):

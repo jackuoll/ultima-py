@@ -105,7 +105,7 @@ class BodyTable:
     @classmethod
     def load(cls):
         print("Loading BodyTable")
-        f = open('files/Body.def', 'r')
+        f = open(ultima_file_path('Body.def'), 'r')
         for line in f:
             line = line.strip()
             if not line or line.startswith("#"):

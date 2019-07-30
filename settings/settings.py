@@ -35,7 +35,7 @@ def is_mount(item_id):
     return int(item_id) in ULTIMA_MOUNT_IDS
 
 
-ULTIMA_MOUNT_IDS = os.path.abspath(get_django_var_or_env('MOUNT_IDS'))
+ULTIMA_MOUNT_IDS = get_django_var_or_env('MOUNT_IDS')
 if type(ULTIMA_MOUNT_IDS) is str:
     import json
     MOUNT_IDS = json.loads(ULTIMA_MOUNT_IDS)

@@ -1,3 +1,4 @@
+from settings import ultima_file_path
 from .file_index import FileIndex
 from .utils import readbyte
 from struct import unpack, error
@@ -13,7 +14,7 @@ class SkillGroup:
         def read_char(f_ref, unicode):
             return unpack('c', f.read(1))[0].decode('cp1252') if not cls.unicode else chr(unpack('h', f.read(2))[0])
         Skills.load()
-        with open('files/skillgrp.mul', 'rb') as f:
+        with open(ultima_file_path('skillgrp.mul'), 'rb') as f:
             start = 4
             strlen = 17
             count = unpack('i', f.read(4))[0]

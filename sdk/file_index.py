@@ -1,3 +1,4 @@
+from settings import ultima_file_path
 import os
 from io import FileIO
 from struct import unpack
@@ -16,9 +17,9 @@ class FileIndex:
     def __init__(self, idx_filename, mul_filename, length, file_idx):
         try:
             index_file = None
-            self.index_file_path = os.path.join('files/', idx_filename)
+            self.index_file_path = ultima_file_path(idx_filename)
             index_file = FileIO(self.index_file_path, 'rb')
-            self.mul_file_path = os.path.join('files/', mul_filename)
+            self.mul_file_path = ultima_file_path(mul_filename)
             mul_file = FileIO(self.mul_file_path, 'rb')
         except FileNotFoundError:
             print(f"No file for index {idx_filename if not index_file else mul_filename}")
