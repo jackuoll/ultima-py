@@ -1,5 +1,4 @@
-from settings import ultima_file_path
-import os
+from ultimapy.settings import ultima_file_path
 from io import FileIO
 from struct import unpack
 from .verdata import Verdata
@@ -27,6 +26,7 @@ class FileIndex:
         idx_file_bytes = len(index_file.read())
         index_file.seek(0)
         count = int(idx_file_bytes / 12)
+        length = length or count
         self.index_length = idx_file_bytes
         self.stream = mul_file
         self.index = []

@@ -1,6 +1,6 @@
-from settings import ultima_file_path
+from ultimapy.settings import ultima_file_path
 from PIL import Image
-from .utils import readbyte, get_arbg_from_16_bit
+from .utils import read_byte, get_arbg_from_16_bit
 
 
 class ASCIIFont:
@@ -23,9 +23,9 @@ class ASCIIFont:
             for i in range(10):
                 font = ASCIIFont(f)
                 for k in range(224):
-                    width = readbyte(f)
-                    height = readbyte(f)
-                    readbyte(f)  # unknown, discard
+                    width = read_byte(f)
+                    height = read_byte(f)
+                    read_byte(f)  # unknown, discard
                     if k < 96:
                         font.height = max(font.height, height)
                     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -35,8 +35,8 @@ class ASCIIFont:
                         f.seek(pos)
                         pos += stride
                         for x in range(width):
-                            first_byte = readbyte(f)
-                            second_byte = readbyte(f)
+                            first_byte = read_byte(f)
+                            second_byte = read_byte(f)
                             pixel_num = first_byte | (second_byte << 8)
                             if pixel_num > 0:
                                 img.putpixel((x, y), get_arbg_from_16_bit(pixel_num ^ 0x8000))
@@ -65,3 +65,6 @@ class ASCIIFont:
             new_im.paste(im, (x_offset, height - im.size[1]))
             x_offset += im.size[0]
         return new_im
+
+
+ASCIIFont.load()

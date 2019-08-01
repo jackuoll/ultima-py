@@ -31,17 +31,13 @@ def ultima_file_path(file_name):
     return os.path.join(ULTIMA_FILES_DIR, file_name)
 
 
-def is_mount(item_id):
-    return int(item_id) in ULTIMA_MOUNT_IDS
-
-
 ULTIMA_MOUNT_IDS = get_django_var_or_env('MOUNT_IDS')
 if type(ULTIMA_MOUNT_IDS) is str:
     import json
-    MOUNT_IDS = json.loads(ULTIMA_MOUNT_IDS)
+    ULTIMA_MOUNT_IDS = json.loads(ULTIMA_MOUNT_IDS)
 
 if not ULTIMA_MOUNT_IDS:
-    MOUNT_IDS = [
+    ULTIMA_MOUNT_IDS = [
         228, 200, 218, 204, 179, 226, 219, 116, 178, 220, 210, 117
     ]
 

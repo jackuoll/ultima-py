@@ -1,4 +1,4 @@
-from settings import ultima_file_path
+from ultimapy.settings import ultima_file_path
 
 from struct import unpack
 from .art import Art

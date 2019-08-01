@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ultimapy",
-    version="0.0.4",
+    version="0.0.6a",
     author="Jack Ward",
     author_email="jackward84@gmail.com",
     description="Ultima SDK Python Port",
