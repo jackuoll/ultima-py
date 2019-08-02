@@ -1,3 +1,4 @@
+from io import BytesIO
 from struct import unpack
 
 from PIL import Image

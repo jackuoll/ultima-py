@@ -1,5 +1,6 @@
 from ultimapy.settings import ultima_file_path
 
+import functools
 from struct import unpack
 from .art import Art
 
@@ -67,6 +68,10 @@ class NewLandMul(OldLandMul):
 class OldItemMul:
     size = 4 + 1 * 9 + 2 * 2 + 20
 
+    @functools.lru_cache()
+    def partial_hue(self):
+        return self.flags & 0x00040000
+
     def __init__(self, flags, weight, quality, misc, unk2, amt, anim, unk3, hue, stacking_offset, value, height, name):
         self.flags = flags
         self.weight = int(weight)
@@ -81,6 +86,7 @@ class OldItemMul:
         self.value = int(value)
         self.height = int(height)
         self.name = name.decode('cp1252')
+        self.name = self.name.replace("\x00", "")
 
     @classmethod
     def from_stream(cls, stream):

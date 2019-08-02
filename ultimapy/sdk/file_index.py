@@ -1,5 +1,5 @@
 from ultimapy.settings import ultima_file_path
-from io import FileIO
+from io import BytesIO
 from struct import unpack
 from .verdata import Verdata
 
@@ -17,9 +17,9 @@ class FileIndex:
         try:
             index_file = None
             self.index_file_path = ultima_file_path(idx_filename)
-            index_file = FileIO(self.index_file_path, 'rb')
+            index_file = open(self.index_file_path, 'rb')
             self.mul_file_path = ultima_file_path(mul_filename)
-            mul_file = FileIO(self.mul_file_path, 'rb')
+            mul_file = open(self.mul_file_path, 'rb')
         except FileNotFoundError:
             print(f"No file for index {idx_filename if not index_file else mul_filename}")
             return
@@ -58,14 +58,17 @@ class FileIndex:
             patched = True
             stream = Verdata.FILE
             stream.seek(entry.lookup)
-            return stream, length, extra, patched
+            return BytesIO(stream.read(length)), length, extra, patched
 
         stream = self.stream
         if not self.stream:# or self.index_length < entry.lookup:
             return null_return
+
+        byte_stream = None  # return nothing if is validation
         if not is_validation:
             stream.seek(entry.lookup)
-        return stream, length, extra, patched
+            byte_stream = BytesIO(stream.read(length))
+        return byte_stream, length, extra, patched
 
     def valid(self, index):
         stream, length, extra, patched = self.seek(index, is_validation=True)
