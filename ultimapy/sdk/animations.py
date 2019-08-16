@@ -192,7 +192,7 @@ class Animation:
         paste_centered(img, player_frames)
         for item_id, hue in filter(lambda layer: not is_mount(layer[0]), layers):
             item = item_data(item_id)
-            clothing_frame = Animation.get_animation(item.animation, action, 1, hue, True)
+            clothing_frame = Animation.get_animation(item.animation, action, 1, hue, True, item.partial_hue)
             if not clothing_frame:
                 continue
             paste_centered(img, clothing_frame)
