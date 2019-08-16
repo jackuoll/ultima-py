@@ -21,7 +21,7 @@ class Animation:
     ]
 
     @classmethod
-    def get_animation(cls, body, action, direction, hue, first_frame):
+    def get_animation(cls, body, action, direction, hue, first_frame, partial_hue=False):
         body, hue = cls.translate(body, hue)
         body, file_type = BodyConverter.convert(body)
         file_index, index = cls.get_file_index(body, action, direction, file_type)
@@ -34,7 +34,6 @@ class Animation:
         frame_count = unpack('i', stream.read(4))[0]
         frames = [None] * frame_count
         lookups = [start + x for x in unpack('i' * frame_count, stream.read(4 * frame_count))]
-        only_hue_grey = (hue & 0x8000) != 0
         hue = (hue & 0x3FFF) - 1
         hue_obj = None
         if 0 <= hue < len(Hues.HUES):
@@ -45,7 +44,7 @@ class Animation:
             stream.seek(lookups[i])
             frames[i] = Frame(palette, stream, flip)
             if hue_obj and frames[i] and frames[i].bitmap:
-                hue_obj.apply_to(frames[i].bitmap, only_hue_grey)
+                hue_obj.apply_to(frames[i].bitmap, partial_hue)
         return frames
 
     @classmethod

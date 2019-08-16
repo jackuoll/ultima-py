@@ -13,7 +13,7 @@ class Gumps:
     _patched = {}
 
     @classmethod
-    def get_gump(cls, index, hue=0):
+    def get_gump(cls, index, hue=0, partial_hue=False):
         def read_number():
             return unpack('h', stream.read(2))[0]
         # todo: patching etc
@@ -43,9 +43,8 @@ class Gumps:
                         bitmap.putpixel((x + pix, y), get_arbg_from_16_bit(color))
                 x += x_run
         if hue:
-            only_hue_grey = (hue & 0x8000) != 0
             hue = (hue & 0x3FFF) - 1
-            return Hues.HUES[hue].apply_to(bitmap, only_grey_pixels=only_hue_grey)
+            return Hues.HUES[hue].apply_to(bitmap, only_grey_pixels=partial_hue)
         return bitmap
 
     def paperdoll_of(self, female, body_hue, layers, order=True):
@@ -65,8 +64,10 @@ class Gumps:
         img.paste(body_img)
 
         for item_id, hue in layers:
-            anim = item_data(item_id).animation
-            item = get_gump(anim + 50000 + int(female) * 10000, hue) or get_gump(anim + 50000, hue)
+            item = item_data(item_id)
+            anim = item.animation
+            partial = item.partial_hue
+            item = get_gump(anim + 50000 + int(female) * 10000, hue, partial) or get_gump(anim + 50000, hue, partial)
             if not item:
                 continue
             img.paste(item, (0, 0), item)
