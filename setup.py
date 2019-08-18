@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ultimapy",
-    version="0.0.11",
+    version="0.0.13",
     author="Jack Ward",
     author_email="jackward84@gmail.com",
     description="UltimaPy - Extract information and images from the UO client files",

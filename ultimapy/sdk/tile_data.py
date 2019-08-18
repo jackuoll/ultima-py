@@ -69,6 +69,7 @@ class OldItemMul:
     size = 4 + 1 * 9 + 2 * 2 + 20
 
     @functools.lru_cache()
+    @property
     def partial_hue(self):
         return self.flags & 0x00040000
 
