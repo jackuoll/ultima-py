@@ -68,8 +68,8 @@ class NewLandMul(OldLandMul):
 class OldItemMul:
     size = 4 + 1 * 9 + 2 * 2 + 20
 
-    @functools.lru_cache()
     @property
+    @functools.lru_cache()
     def partial_hue(self):
         return self.flags & 0x00040000
 
