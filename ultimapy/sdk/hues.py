@@ -18,19 +18,18 @@ class Hues:
             basically a static method for hueing an image.
         :param img: input image
         :param color: arbg color
-        :param only_grey_pixels: looks retarded when true
+        :param only_grey_pixels: to be used in conjunction with ItemData -> partial_hue
         :return: hued image
         """
         width = img.size[0]
         height = img.size[1]
-        stride = width * 2  # assuming always 2 bytes per pixel -- not sure yet
         for y in range(height):
             for x in range(width):
-                col = img.getpixel((x,y))
+                col = img.getpixel((x, y))
                 if col == (0, 0, 0, 0):
                     continue
                 if col[0] == col[1] == col[2] or not only_grey_pixels:
-                    img.putpixel((x,y), color)
+                    img.putpixel((x, y), color)
 
         return img
 
@@ -62,21 +61,21 @@ class Hue:
     def __init__(self, index):
         self.name = None
         self.index = index
-        self.colors = [] # numbers
+        self.colors = []  # numbers
         self.table_start = 0
         self.table_end = 0
 
-    def apply_to(self, img, only_grey_pixels=True):
+    def apply_to(self, img, only_grey_pixels):
         width = img.size[0]
         height = img.size[1]
         for y in range(height):
             for x in range(width):
-                col = img.getpixel((x,y))
+                col = img.getpixel((x, y))
                 if col == (0, 0, 0, 0):
                     continue
                 if col[0] == col[1] == col[2] or not only_grey_pixels:
                     r = int(col[0] / 255 * 31)
-                    img.putpixel((x,y), get_arbg_from_16_bit(self.colors[r]))
+                    img.putpixel((x, y), get_arbg_from_16_bit(self.colors[r]))
 
         return img
 

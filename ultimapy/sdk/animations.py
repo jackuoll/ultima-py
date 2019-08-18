@@ -185,7 +185,7 @@ class Animation:
         action = 4 if not mount else 25
         img = Image.new("RGBA", (200, 200))
         if mount:
-            mount_img = Animation.get_animation(mount, 2, 1, mount_hue, True)
+            mount_img = Animation.get_animation(mount, 2, 1, mount_hue, True, True)
             paste_centered(img, mount_img)
         player_frames = Animation.get_animation(401 if female else 400, action, 1, body_hue, True)
 

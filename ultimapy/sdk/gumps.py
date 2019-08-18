@@ -60,7 +60,7 @@ class Gumps:
             """
         img = Image.new("RGBA", (260, 237))
         body = 12 + int(female)
-        body_img = get_gump(body, body_hue)
+        body_img = get_gump(body, body_hue, True)
         img.paste(body_img)
 
         for item_id, hue in layers:
