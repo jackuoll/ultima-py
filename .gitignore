@@ -10,3 +10,4 @@ environment.ini
 dist/
 ultimapy.egg-info/
 pypi-release.sh
+test.py

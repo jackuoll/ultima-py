@@ -16,8 +16,11 @@ class Gumps:
     def get_gump(cls, index, hue=0, partial_hue=False):
         def read_number():
             return unpack('h', stream.read(2))[0]
-        # todo: patching etc
-        patched = False
+
+        cached = cls._cache[index]
+        if cached:
+            return cls.hue_gump(cached, hue, partial_hue)
+
         stream, length, extra, patched = cls._file_index.seek(index)
         if not stream or extra == -1:
             return
@@ -42,10 +45,17 @@ class Gumps:
                     for pix in range(x_run):
                         bitmap.putpixel((x + pix, y), get_arbg_from_16_bit(color))
                 x += x_run
+        cls._cache[index] = bitmap
+        return cls.hue_gump(bitmap, hue, partial_hue)
+
+    @classmethod
+    def hue_gump(cls, bitmap, hue, partial_hue):
+        copy = bitmap.copy()
         if hue:
             hue = (hue & 0x3FFF) - 1
             return Hues.HUES[hue].apply_to(bitmap, only_grey_pixels=partial_hue)
-        return bitmap
+        return copy
+
 
     def paperdoll_of(self, female, body_hue, layers, order=True):
         """
