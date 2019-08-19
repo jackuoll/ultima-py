@@ -1,4 +1,3 @@
-from io import BytesIO
 from struct import unpack
 
 from PIL import Image
@@ -79,13 +78,13 @@ class Animation:
         body = cls.translate(body)
         body, file_type = BodyConverter.convert(body)
         file_index, index = cls.get_file_index(body, action, direction, file_type)
-        valid, length, _, _ = file_index.valid(index)
+        valid, length, _, _ = file_index.valid(index, True)
         return valid and length > 0
 
     @classmethod
     def is_anim_defined(cls, body, action, direction, file_type):
         file_index, index = cls.get_file_index(body, action, direction, file_type)
-        stream, length, _, _ = file_index.seek(index)  # todo: why seek? is it used?
+        stream, length, _, _ = file_index.seek(index, True)
         return stream and length > 0
 
     @classmethod

@@ -2,6 +2,7 @@ from ultimapy.settings import ultima_file_path
 from io import BytesIO
 from struct import unpack
 from .verdata import Verdata
+import os
 
 
 class FileIndex:
@@ -19,7 +20,6 @@ class FileIndex:
             self.index_file_path = ultima_file_path(idx_filename)
             index_file = open(self.index_file_path, 'rb')
             self.mul_file_path = ultima_file_path(mul_filename)
-            mul_file = open(self.mul_file_path, 'rb')
         except FileNotFoundError:
             print(f"No file for index {idx_filename if not index_file else mul_filename}")
             return
@@ -28,7 +28,6 @@ class FileIndex:
         count = int(idx_file_bytes / 12)
         length = length or count
         self.index_length = idx_file_bytes
-        self.stream = mul_file
         self.index = []
         for i in range(count):
             self.index.append(Entry3D(*unpack('i'*3, index_file.read(4*3))))
@@ -60,19 +59,17 @@ class FileIndex:
             stream.seek(entry.lookup)
             return BytesIO(stream.read(length)), length, extra, patched
 
-        stream = self.stream
-        if not self.stream:# or self.index_length < entry.lookup:
-            return null_return
-
-        byte_stream = None  # return nothing if is validation
         if not is_validation:
-            stream.seek(entry.lookup)
-            byte_stream = BytesIO(stream.read(length))
-        return byte_stream, length, extra, patched
+            with open(self.mul_file_path, 'rb') as stream:
+                stream.seek(entry.lookup)
+                byte_stream = BytesIO(stream.read(length))
+            return byte_stream, length, extra, patched
+
+        return True, length, extra, patched
 
     def valid(self, index):
         stream, length, extra, patched = self.seek(index, is_validation=True)
-        return stream is not None, length, extra, patched
+        return bool(stream), length, extra, patched
 
 
 class Entry3D:

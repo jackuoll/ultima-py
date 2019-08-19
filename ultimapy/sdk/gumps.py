@@ -53,7 +53,7 @@ class Gumps:
         copy = bitmap.copy()
         if hue:
             hue = (hue & 0x3FFF) - 1
-            return Hues.HUES[hue].apply_to(bitmap, only_grey_pixels=partial_hue)
+            return Hues.HUES[hue].apply_to(copy, only_grey_pixels=partial_hue)
         return copy
 
 
