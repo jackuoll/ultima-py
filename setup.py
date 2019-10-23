@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license="Beerware",
     install_requires=[
-        'Pillow==5.2.0',
+        'Pillow==6.2.0',
         'imageio==2.3.0'
     ],
     classifiers=[
