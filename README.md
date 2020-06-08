@@ -4,6 +4,12 @@
 
 ultimapy is a python library for rendering images from the Ultima Online client files. The SDK part of the project is almost a direct 1:1 code translation of the C# Ultima SDK (used by UOFiddler, among other things).
 
+### Why?
+
+The C# SDK does not run with mono due to implementations being missing from the underlying libraries. Attempts to get this to run in dotnet core or using mono have never been successful. Rewriting this code in Python allows the code to be used in a linux environment, for the most part out of the box. Since Python has many available and popular web frameworks, this library allows you to serve up images directly in code used by your web framework of choice.
+
+It also includes some features not seen anywhere else, such as the rendering of player avatars. Items & paperdolls have been done before in PHP, but this code is difficult to read and edit, whereas this library takes a much more flexible and simple approach (the same as which is used in the C# SDK). This lib even fixes a few rendering bugs which are present in the C# SDK.
+
 ### Features
 ultimapy can currently do the following:
 * Render land, statics. This includes rendering of in game items.
