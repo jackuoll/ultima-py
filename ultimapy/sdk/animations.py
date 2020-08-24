@@ -43,7 +43,7 @@ class Animation:
             stream.seek(lookups[i])
             frames[i] = Frame(palette, stream, flip)
             if hue_obj and frames[i] and frames[i].bitmap:
-                hue_obj.apply_to(frames[i].bitmap, partial_hue)
+                frames[i].bitmap = hue_obj.apply_to(frames[i].bitmap, partial_hue)
         return frames
 
     @classmethod

@@ -21,6 +21,7 @@ class Hues:
         :param only_grey_pixels: to be used in conjunction with ItemData -> partial_hue
         :return: hued image
         """
+        img = img.copy()
         width = img.size[0]
         height = img.size[1]
         for y in range(height):
@@ -66,6 +67,7 @@ class Hue:
         self.table_end = 0
 
     def apply_to(self, img, only_grey_pixels):
+        img = img.copy()
         width = img.size[0]
         height = img.size[1]
         for y in range(height):
