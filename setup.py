@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ultimapy",
-    version="0.0.18",
+    version="0.0.19",
     author="Jack Ward",
     author_email="jackward84@gmail.com",
     description="UltimaPy - Extract information and images from the UO client files",
@@ -15,8 +15,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license="Beerware",
     install_requires=[
-        'Pillow==6.2.2',
-        'imageio==2.3.0'
+        'Pillow',
+        'imageio'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
