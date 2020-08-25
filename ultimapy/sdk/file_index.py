@@ -6,14 +6,7 @@ import os
 
 
 class FileIndex:
-    """
-        - No current UOP support.
-        - Patches not tested.
-        - Output unconfirmed to be accurate.
-        - Seek method not implemented
-        - Valid() method not implemented
-        - Should be refactored -- files can be non existent.
-    """
+    """No current UOP support."""
     def __init__(self, idx_filename, mul_filename, length, file_idx):
         try:
             index_file = None

@@ -3,11 +3,7 @@ from ultimapy.settings import ultima_file_path
 
 
 class BodyConverter:
-    """
-        Pretty much copied from C# Ultima SDK but could do with some refactoring.
-        No known issues.
-        Untested, should compare output directly with Ultima SDK.
-    """
+    """No known issues."""
     loaded = False
     TABLE_1 = []
     TABLE_2 = []

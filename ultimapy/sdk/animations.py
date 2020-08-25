@@ -10,7 +10,7 @@ from .utils import get_arbg_from_16_bit, mount_info, paste_centered, trim, is_mo
 
 
 class Animation:
-    _table = None  # integers
+    table = {}
     _file_indexes = [
         FileIndex("anim.idx", "anim.mul", 0x40000, 6),
         FileIndex("anim2.idx", "anim2.mul", 0x10000, -1),  # i don't have these files to test anything
@@ -49,21 +49,21 @@ class Animation:
     @classmethod
     def load_table(cls):
         count = int(400 + (cls._file_indexes[0].index_length - 35000) / 175)
-        table = cls._table = [None] * count
+        cls.table = {i: None for i in range(count)}
         for i in range(count):
             bte = BodyTable.entries.get(i, None)
             if bte is None or BodyConverter.contains(i):
-                table[i] = i
+                cls.table[i] = i
             else:
-                table[i] = bte.old_id | (1 << 31) | ((bte.new_hue & 0xFFFF) << 15)
+                cls.table[i] = bte.old_id | (1 << 31) | ((bte.new_hue & 0xFFFF) << 15)
 
     @classmethod
     def translate(cls, body, hue=None):
-        if cls._table is None:
+        if cls.table is None:
             cls.load_table()
-        if body <= 0 or body >= len(cls._table):
+        if body <= 0 or body >= len(cls.table):
             return 0, 0
-        t = cls._table[body]  # except?
+        t = cls.table[body]  # except?
         if hue is None:
             return t & 0x7FFF, 0
         if t & (1 << 31) != 0:
@@ -75,16 +75,16 @@ class Animation:
 
     @classmethod
     def is_action_defined(cls, body, action, direction):
-        body = cls.translate(body)
+        body, _ = cls.translate(body)
         body, file_type = BodyConverter.convert(body)
         file_index, index = cls.get_file_index(body, action, direction, file_type)
-        valid, length, _, _ = file_index.valid(index, True)
+        valid, length, _, _ = file_index.valid(index)
         return valid and length > 0
 
     @classmethod
     def is_anim_defined(cls, body, action, direction, file_type):
         file_index, index = cls.get_file_index(body, action, direction, file_type)
-        stream, length, _, _ = file_index.seek(index, True)
+        stream, length, _, _ = file_index.seek(index)
         return stream and length > 0
 
     @classmethod
