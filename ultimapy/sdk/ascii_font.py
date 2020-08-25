@@ -1,6 +1,8 @@
-from ultimapy.settings import ultima_file_path
 from PIL import Image
-from .utils import read_byte, get_arbg_from_16_bit
+
+from ultimapy.settings import ultima_file_path
+
+from .utils import get_arbg_from_16_bit, read_byte
 
 
 class ASCIIFont:

@@ -1,7 +1,8 @@
+from struct import unpack
+
 from ultimapy.settings import ultima_file_path
 
 from .utils import get_arbg_from_16_bit
-from struct import unpack
 
 
 class Hues:

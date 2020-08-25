@@ -1,8 +1,10 @@
-from ultimapy.settings import ultima_file_path
+import os
 from io import BytesIO
 from struct import unpack
+
+from ultimapy.settings import ultima_file_path
+
 from .verdata import Verdata
-import os
 
 
 class FileIndex:

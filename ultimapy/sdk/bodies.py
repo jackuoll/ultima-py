@@ -1,5 +1,6 @@
-from .utils import safe_list_get
 from ultimapy.settings import ultima_file_path
+
+from .utils import safe_list_get
 
 
 class BodyConverter:

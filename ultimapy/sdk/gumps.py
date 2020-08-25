@@ -1,9 +1,12 @@
+from struct import unpack
+
+from PIL import Image
+
 from ultimapy.sdk.file_index import FileIndex
 from ultimapy.sdk.hues import Hues
-from PIL import Image
-from .utils import get_arbg_from_16_bit, trim
-from struct import unpack
 from ultimapy.sdk.tile_data import item_data
+
+from .utils import get_arbg_from_16_bit, trim
 
 
 class Gumps:

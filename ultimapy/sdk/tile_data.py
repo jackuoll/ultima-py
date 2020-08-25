@@ -1,7 +1,8 @@
-from ultimapy.settings import ultima_file_path
-
 import functools
 from struct import unpack
+
+from ultimapy.settings import ultima_file_path
+
 from .art import Art
 
 

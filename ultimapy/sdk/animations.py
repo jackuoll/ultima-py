@@ -4,9 +4,9 @@ from PIL import Image
 
 from .bodies import *
 from .file_index import FileIndex
-from .tile_data import item_data
 from .hues import Hues
-from .utils import get_arbg_from_16_bit, mount_info, paste_centered, trim, is_mount
+from .tile_data import item_data
+from .utils import get_arbg_from_16_bit, is_mount, mount_info, paste_centered, trim
 
 
 class Animation:

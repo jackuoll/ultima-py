@@ -1,4 +1,5 @@
 from PIL import Image, ImageChops
+
 from ultimapy.settings import ULTIMA_MOUNT_IDS
 
 

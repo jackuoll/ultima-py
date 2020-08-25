@@ -1,6 +1,6 @@
-from ultimapy.settings import ultima_file_path
-
 from struct import unpack
+
+from ultimapy.settings import ultima_file_path
 
 
 class Verdata:

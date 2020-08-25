@@ -1,7 +1,7 @@
 import os
 
 try:
-    from django.conf import settings
+    from django.conf import settings  # noqa
 except ModuleNotFoundError:
     settings = None
 

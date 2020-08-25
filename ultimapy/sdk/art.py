@@ -1,8 +1,9 @@
-from .file_index import FileIndex
-from .utils import get_arbg_from_16_bit
 from struct import unpack
 
 from PIL import Image
+
+from .file_index import FileIndex
+from .utils import get_arbg_from_16_bit
 
 
 class Art:

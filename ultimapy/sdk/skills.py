@@ -1,6 +1,8 @@
+from struct import error, unpack
+
 from ultimapy.settings import ultima_file_path
+
 from .file_index import FileIndex
-from struct import unpack, error
 
 
 class SkillGroup:
