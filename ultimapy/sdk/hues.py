@@ -53,6 +53,8 @@ class Hues:
                 new_hue.name = f.read(20).decode('cp1252')
                 cls.HUES[idx] = new_hue
                 idx += 1
+        # ethereal hue
+        cls.HUES[0x4001] = Hue(0x4001)
 
 
 class Hue:
@@ -77,8 +79,11 @@ class Hue:
                 if col == (0, 0, 0, 0):
                     continue
                 if col[0] == col[1] == col[2] or not only_grey_pixels:
-                    r = int(col[0] / 255 * 31)
-                    img.putpixel((x, y), get_arbg_from_16_bit(self.colors[r]))
+                    if self.index == 0x4001:
+                        img.putpixel((x, y), (0, 0, 0, 200 - col[0]))
+                    else:
+                        r = int(col[0] / 255 * 31)
+                        img.putpixel((x, y), get_arbg_from_16_bit(self.colors[r]))
 
         return img
 

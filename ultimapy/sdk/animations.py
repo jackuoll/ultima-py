@@ -22,6 +22,7 @@ class Animation:
     @classmethod
     def get_animation(cls, body, action, direction, hue, first_frame, partial_hue=False):
         body, hue = cls.translate(body, hue)
+        spectral_shade = hue & 0x4000 != 0
         body, file_type = BodyConverter.convert(body)
         file_index, index = cls.get_file_index(body, action, direction, file_type)
         stream, length, extra, patched = file_index.seek(index)
@@ -35,7 +36,9 @@ class Animation:
         lookups = [start + x for x in unpack('i' * frame_count, stream.read(4 * frame_count))]
         hue = (hue & 0x3FFF) - 1
         hue_obj = None
-        if 0 <= hue < len(Hues.HUES):
+        if spectral_shade:
+            hue = 0x4001
+        if hue in Hues.HUES:
             hue_obj = Hues.HUES[hue]
         if first_frame:
             frame_count = 1
@@ -64,12 +67,12 @@ class Animation:
         if body <= 0 or body >= len(cls.table):
             return 0, 0
         t = cls.table[body]  # except?
+        body = t & 0x7FFF
         if hue is None:
-            return t & 0x7FFF, 0
+            return body, 0
         if t & (1 << 31) != 0:
-            body = t & 0x7FFF
             vhue = (hue & 0x3FFF) - 1
-            if vhue < 0 or vhue >= len(Hues.HUES):
+            if vhue not in Hues.HUES:
                 hue = (t >> 15) & 0xFFFF
         return body, hue
 
