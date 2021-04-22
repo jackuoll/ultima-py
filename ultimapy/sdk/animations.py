@@ -62,7 +62,7 @@ class Animation:
 
     @classmethod
     def translate(cls, body, hue=None):
-        if cls.table is None:
+        if not cls.table:
             cls.load_table()
         if body <= 0 or body >= len(cls.table):
             return 0, 0
