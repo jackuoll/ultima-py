@@ -48,7 +48,12 @@ class Skills:
     entries = []
     @classmethod
     def load(cls):
-        cls.file_index = FileIndex(ultima_file_path('Skills.idx'), ultima_file_path('skills.mul'), None, 16)
+        cls.file_index = FileIndex(
+            ultima_file_path('Skills.idx'),
+            ultima_file_path('skills.mul'),
+            0,
+            16
+        )
         for i in range(cls.file_index.index_length):
             stream, length, extra, patched = cls.file_index.seek(i)
             if stream is None:

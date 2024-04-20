@@ -7,7 +7,16 @@ from .utils import get_arbg_from_16_bit
 
 
 class Art:
-    _file_index = FileIndex("artidx.mul", "art.mul", 0x10000, 4)
+    _file_index = FileIndex(
+        "artidx.mul",
+        "art.mul",
+        0x14000,  # todo: length is now 0x14000 in newer ultimasdk - was 0x10000??
+        4,
+        uop_file="artLegacyMUL.uop",
+        uop_entry_extension=".tga",
+        uop_has_extra=False,
+        uop_idx_length=0x13FDC
+    )
     idx_length = 0
     _max_item_id = 0
     is_uoahs = False

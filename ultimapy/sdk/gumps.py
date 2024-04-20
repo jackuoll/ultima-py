@@ -10,13 +10,22 @@ from .utils import get_arbg_from_16_bit, trim
 
 
 class Gumps:
-    _file_index = FileIndex("gumpidx.mul", "gumpart.mul", 0xFFFF, 12)
+    _file_index = FileIndex(
+        "gumpidx.mul",
+        "gumpart.mul",
+        0xFFFF,
+        12,
+        uop_file="gumpartLegacyMUL.uop",
+        uop_idx_length=-1,
+        uop_entry_extension=".tga",
+        uop_has_extra=True
+    )
     _cache = [None] * 0xFFFF
     _removed = [False] * 0xFFFF
     _patched = {}
 
     @classmethod
-    def get_gump(cls, index, hue=0, partial_hue=False):
+    def get_gump(cls, index: int, hue=0, partial_hue=False):
         def read_number():
             return unpack('h', stream.read(2))[0]
 
@@ -58,7 +67,6 @@ class Gumps:
             hue = (hue & 0x3FFF) - 1
             return Hues.HUES[hue].apply_to(copy, only_grey_pixels=partial_hue)
         return copy
-
 
     def paperdoll_of(self, female, body_hue, layers, order=True):
         """
