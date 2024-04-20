@@ -12,7 +12,6 @@ from .verdata import Verdata
 
 
 class FileIndex:
-    """No current UOP support."""
     def __init__(
         self,
         idx_filename: str,
