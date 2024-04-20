@@ -1,4 +1,5 @@
 from struct import unpack
+from typing import Dict
 
 from ultimapy.settings import ultima_file_path
 
@@ -11,7 +12,7 @@ class Hues:
         Not all methods implemented.
         Should be reconfigured to auto load. Should never need to instantiate anything manually.
     """
-    HUES = {}
+    HUES: Dict[int, "Hue"] = {}
 
     @classmethod
     def apply_to(cls, img, color, only_grey_pixels):

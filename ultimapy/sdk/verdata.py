@@ -8,18 +8,34 @@ class Verdata:
         No reason to instantiate.
         Assumed to be working as per C# Ultima SDK but untested.
     """
-    FILE = open(ultima_file_path('verdata.mul'), 'rb')
     patches = []
+    _stream = None
+
+    @classmethod
+    def get_stream(cls):
+        if cls._stream is not None:
+            return cls._stream
+        try:
+            return open(ultima_file_path('verdata.mul'), 'rb')
+        except FileNotFoundError:
+            pass
 
     @classmethod
     def load(cls):
-        total_patches = unpack('i', cls.FILE.read(4))[0]
+        stream = cls.get_stream()
+        if stream is None:
+            return
+        total_patches = unpack('i', stream.read(4))[0]
         for i in range(total_patches):
-            cls.patches.append(Entry5D(*unpack('i'*5, cls.FILE.read(20))))
+            cls.patches.append(Entry5D(*unpack('i'*5, stream.read(20))))
 
     @classmethod
     def seek(cls, lookup):
-        cls.FILE.Seek(lookup)
+        stream = cls.get_stream()
+        if stream is None:
+            return
+        stream.Seek(lookup)
+
 
 
 class Entry5D:

@@ -22,7 +22,7 @@ class TileData:
             f.seek(0, 2)
             length = f.tell()
             f.seek(0)
-            cls.new_format = Art.is_uoahs
+            cls.new_format = Art.is_uoahs  # ??? todo: huge assumption here that art has loaded.
             j = 0
             for i in range(0, len(cls.land_data), 32):
                 cls.land_header[j] = unpack('i', f.read(4))[0]
