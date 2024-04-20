@@ -4,6 +4,8 @@
 
 ultimapy is a python library for rendering images from the Ultima Online client files. The SDK part of the project is almost a direct 1:1 code translation of the C# Ultima SDK (used by UOFiddler, among other things).
 
+It does not support saving back to client files, only reading.
+
 ### Why?
 
 The C# SDK does not run with mono due to implementations being missing from the underlying libraries. Attempts to get this to run in dotnet core or using mono have never been successful. Rewriting this code in Python allows the code to be used in a linux environment, for the most part out of the box. Since Python has many available popular open source web frameworks, this library allows you to serve up images directly in code used by your web framework of choice.
@@ -17,10 +19,6 @@ ultimapy can currently do the following:
 * Draw text from the client (eg, ASCIIFont).
 * Extract information about skills - naming, groups, indexes.
 * Rendering paperdolls / individual gumps
-
-##### Unimplemented features
-* UOP support is not planned, which limits the client version.
-
 
 ### Installation
 Install ultimapy to your project with:
@@ -46,8 +44,14 @@ Currently there are only 2 settings:
 Example of creating an image:
 
 ```
-from ultimapy.ascii_font import ASCIIFont
+from ultimapy.sdk.art import Art
+from ultimapy.sdk.hues import Hues
 
-img = ASCIIFont.FONTS[3].get_string_image("Hello world")
-img.save("HelloWorld.bmp")
+moongate_item_id = 0x0F6C
+art = Art.get_static(moongate_item_id, check_max_id=False)
+art.save("art.png")
+
+red = Hues.HUES[32]
+red_hued_art = red.apply_to(art, only_grey_pixels=False)
+red_hued_art.save("red_art.png")
 ```
