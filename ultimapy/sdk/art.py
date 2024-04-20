@@ -1,4 +1,5 @@
 from struct import unpack
+from typing import Optional
 
 from PIL import Image
 
@@ -111,27 +112,26 @@ class Art:
         return cls._file_index.valid(index)
 
     @classmethod
-    def get_land(cls, index):
+    def get_land(cls, index) -> Optional[Image.Image]:
         """
         :return: bitmap, patched (bool)
         """
         index &= 0x3FFF
-        patched = index in cls._patched
         if cls._removed[index]:
-            return None, patched
+            return None
         cache = cls._cache[index]
         if cache:
-            return cache, patched
+            return cache
         stream, length, extra, patched = cls._file_index.seek(index)
         if not stream:
-            return None, patched
+            return None
         if patched:
             cls._patched[index] = True
         caching_data = True  # todo: c# this is Files.CacheData, but it's a static bool that's always true
         if caching_data:
             cls._cache[index] = cls.load_land(stream)
-            return cls._cache[index], patched
-        return cls.load_land(stream), patched
+            return cls._cache[index]
+        return cls.load_land(stream)
 
     @classmethod
     def get_raw_land(cls, index):
@@ -146,22 +146,21 @@ class Art:
         return stream.read(length)
 
     @classmethod
-    def get_static(cls, index, check_max_id=True):
+    def get_static(cls, index: int, check_max_id: bool = True) -> Optional[Image.Image]:
         """
             todo: this method is almost exactly the same as get_land
         :return: bitmap, patched (bool)
         """
         index = cls.get_legal_item_id(index, check_max_id)
         index += 0x4000
-        patched = index in cls._patched
         if cls._removed[index]:
-            return None, patched
+            return None
         cache = cls._cache[index]
         if cache:
             return cache
         stream, length, extra, patched = cls._file_index.seek(index)
         if not stream:
-            return None, patched
+            return None
         if patched:
             cls._patched[index] = True
         caching_data = True  # todo: c# this is Files.CacheData, but it's a static bool that's always true

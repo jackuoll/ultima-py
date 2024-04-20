@@ -26,14 +26,13 @@ class FileIndex:
     ):
         """would really benefit from refactoring to not have the worst instantiation method of all time"""
         self.index = []
-        if uop_file is not None:
+        if uop_file is not None and Path(ultima_file_path(uop_file)).exists():
             """uop file format does not use an index file."""
             self.index_length = uop_idx_length * 12 if uop_idx_length > 0 else 0
-            base_path = Path("/mnt/c/Games/Electronic Arts/Ultima Online Classic/")
             # a lot of these might not be needed
             self.uop_file = uop_file
             self.file_name_without_ext = uop_file.replace(Path(uop_file).suffix, "").lower()
-            self.uop_path = base_path / uop_file
+            self.uop_path = Path(ultima_file_path(uop_file))
             self.mul_file_path = str(self.uop_path)
             self.length = length
             self.uopEntryExtension = uop_entry_extension
