@@ -111,7 +111,7 @@ def hash_file_name(s: str):
         i += 12
 
     if not (remaining := len(s) - i) > 0:
-        return ctypes.c_ulong(esi << 32 | eax).value
+        return esi << 32 | eax
 
     if remaining >= 12:
         esi = ctypes.c_uint(esi + (ord(s[i + 11]) << 24)).value
@@ -157,4 +157,4 @@ def hash_file_name(s: str):
     edi = ctypes.c_uint((edi ^ edx) - ((edx >> 18) ^ (edx << 14))).value
     eax = ctypes.c_uint((esi ^ edi) - ((edi >> 8) ^ (edi << 24))).value
 
-    return ctypes.c_ulong((edi << 32) | eax).value
+    return (edi << 32) | eax
