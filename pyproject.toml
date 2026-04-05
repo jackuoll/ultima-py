@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ultimapy"
+dynamic = ["version"]
+description = "Extract information and images from the Ultima Online client files"
+readme = "README.md"
+license = "Beerware"
+requires-python = ">=3.9"
+authors = [
+    { name = "Jack Ward", email = "jackward84@gmail.com" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "Pillow",
+    "imageio",
+]
+
+[project.urls]
+Homepage = "https://github.com/jackuoll/ultima-py"
+
+[tool.setuptools_scm]
+version_file = "ultimapy/_version.py"
+
+[tool.setuptools.packages.find]
+include = ["ultimapy*"]

@@ -13,3 +13,5 @@ ultimapy.egg-info/
 .local/
 pypi-release.sh
 test.py
+.venv/
+ultimapy/_version.py
